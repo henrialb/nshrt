@@ -731,7 +731,7 @@
       }
 
       function extractIdentifier(raw) {
-        raw = raw.trim();
+        raw = raw.trim().replace(/^nostr:/i, "");
         // Extract from any njump URL: e.g. https://njump.me/<identifier>
         const m = raw.match(/njump\.\w+\/([a-z0-9]+\d*[a-z0-9]+)/i);
         if (m) return m[1];
