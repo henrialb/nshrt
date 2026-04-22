@@ -267,53 +267,6 @@
         font-family: var(--mono);
       }
 
-      /* Redirect page overlay */
-      #redirect-screen {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: var(--bg);
-        z-index: 100;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 32px;
-      }
-      #redirect-screen.active {
-        display: flex;
-      }
-
-      .redirect-label {
-        font-family: var(--sans);
-        font-size: 0.7rem;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin-bottom: 20px;
-      }
-      .redirect-target {
-        font-size: 0.78rem;
-        color: var(--accent);
-        word-break: break-all;
-        max-width: 560px;
-        margin-bottom: 28px;
-        line-height: 1.7;
-      }
-      .spinner {
-        width: 28px;
-        height: 28px;
-        border: 2px solid var(--border);
-        border-top-color: var(--accent);
-        border-radius: 50%;
-        animation: spin 0.7s linear infinite;
-      }
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
       /* Footer */
       footer {
         margin-top: 48px;
@@ -353,145 +306,6 @@
         }
       }
     </style>
-  </head>
-  <body>
-    <div id="redirect-screen">
-      <div class="redirect-label">Redirecting to Nostr</div>
-      <div class="redirect-target" id="redirect-target">…</div>
-      <div class="spinner"></div>
-    </div>
-
-    <div class="wrap" id="main-ui">
-      <header>
-        <div class="logo">n<span>shrt</span></div>
-        <div class="tagline">Serverless short links for Nostr</div>
-      </header>
-
-      <!-- Shorten card -->
-      <div class="card">
-        <div class="card-title">Shorten</div>
-        <label for="input-url"
-          >Paste npub, nevent, naddr, note, or njump URL</label
-        >
-        <div class="input-row">
-          <input
-            type="text"
-            id="input-url"
-            placeholder="npub1… or nevent1… or https://njump.to/…"
-            autocomplete="off"
-            spellcheck="false"
-          />
-          <button class="btn btn-primary" onclick="shorten()">Shorten</button>
-        </div>
-        <div class="error-msg" id="shorten-error"></div>
-
-        <div class="result" id="shorten-result">
-          <div style="margin-bottom: 10px; margin-top: 4px">
-            <label style="margin-bottom: 0">Short link</label>
-          </div>
-          <div class="result-url">
-            <code id="result-short-url"></code>
-            <button class="btn btn-ghost" onclick="copyResult()">Copy</button>
-          </div>
-
-          <div class="info-grid" id="result-info-grid"></div>
-        </div>
-      </div>
-
-      <div class="divider">or</div>
-
-      <!-- Expand card -->
-      <div class="card" style="--accent: var(--accent2)">
-        <div class="card-title" style="color: var(--accent2)">Expand</div>
-        <label for="input-short">Paste a short code to decode</label>
-        <div class="input-row">
-          <input
-            type="text"
-            id="input-short"
-            placeholder="p/7Xk9mQr… or e/…"
-            autocomplete="off"
-            spellcheck="false"
-          />
-          <button
-            class="btn btn-primary"
-            style="border-color: var(--accent2); color: var(--accent2)"
-            onmouseover="this.style.background='var(--accent2)';this.style.color='var(--bg)'"
-            onmouseout="this.style.background='transparent';this.style.color='var(--accent2)'"
-            onclick="expand()"
-          >
-            Expand
-          </button>
-        </div>
-        <div class="error-msg" id="expand-error"></div>
-
-        <div class="result" id="expand-result">
-          <label>Decoded njump URL</label>
-          <div class="result-url" style="border-color: var(--accent2)">
-            <code id="result-expanded-url" style="color: var(--accent2)"></code>
-            <a
-              id="result-expanded-link"
-              href="#"
-              target="_blank"
-              rel="noopener"
-              class="btn btn-ghost"
-              >Open</a
-            >
-          </div>
-        </div>
-      </div>
-
-      <!-- How it works -->
-      <div
-        style="
-          margin-top: 32px;
-          padding: 20px 28px;
-          border: 1px solid var(--border);
-          background: var(--surface);
-        "
-      >
-        <div class="card-title" style="margin-bottom: 14px">How it works</div>
-        <div style="font-size: 0.76rem; color: var(--muted); line-height: 1.9">
-          <p>
-            Nostr identifiers (npub, nevent, naddr) are bech32-encoded bytes.
-            This tool strips the bech32 wrapper and re-encodes the raw bytes in
-            <strong style="color: var(--text)">base62</strong> (0–9, a–z, A–Z).
-          </p>
-          <p style="margin-top: 10px">
-            A 32-byte pubkey goes from
-            <code style="color: var(--accent)">npub1... (63 chars)</code> to
-            <code style="color: var(--success)">43 chars</code>. No database, no
-            server — the short code <em style="color: var(--text)">is</em> the
-            data.
-          </p>
-          <p style="margin-top: 10px">
-            Deploy this file to any static host. Route
-            <code>/:type/:code</code> to this <code>index.html</code> and the JS
-            router handles the rest.
-          </p>
-        </div>
-        <div style="margin-top: 16px; font-size: 0.68rem; color: var(--muted)">
-          URL scheme: &nbsp;
-          <code style="color: var(--accent)">/p/&lt;base62&gt;</code> → npub
-          &nbsp;|&nbsp;
-          <code style="color: var(--accent)">/e/&lt;base62&gt;</code> → nevent
-          &nbsp;|&nbsp;
-          <code style="color: var(--accent)">/a/&lt;base62&gt;</code> → naddr
-          &nbsp;|&nbsp;
-          <code style="color: var(--accent)">/n/&lt;base62&gt;</code> → note
-        </div>
-      </div>
-
-      <footer>
-        <div>
-          No server. No database. No tracking.
-          <span class="pill">100% client-side</span>
-        </div>
-        <div style="margin-top: 6px">
-          Built for the Nostr ecosystem — self-host it on any static host.
-        </div>
-      </footer>
-    </div>
-
     <script>
       // ─── Bech32 ───────────────────────────────────────────────────────────────────
       const BECH32_CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l";
@@ -654,41 +468,6 @@
       // Supported types: p=npub, e=nevent(event id only), n=note, a=naddr
       const TYPE_MAP = { p: "npub", e: "nevent", n: "note", a: "naddr" };
 
-      function nostrToShort(identifier, baseUrl) {
-        identifier = identifier.trim().toLowerCase();
-        // strip bech32
-        const { hrp, data } = bech32Decode(identifier);
-        const bytes = convertbits(data, 5, 8, false);
-
-        let shortType, payload;
-
-        if (hrp === "npub" || hrp === "note") {
-          // simple 32-byte key / event id
-          shortType = hrp === "npub" ? "p" : "n";
-          payload = bytes;
-        } else if (hrp === "nevent") {
-          // TLV: type 0 = event id (32 bytes)
-          const tlv = parseTLV(new Uint8Array(bytes));
-          if (!tlv[0]) throw new Error("nevent missing event id");
-          shortType = "e";
-          payload = Array.from(tlv[0][0]);
-        } else if (hrp === "naddr") {
-          // TLV: type 0 = identifier string, type 1 = relay, type 2 = pubkey (32b), type 3 = kind (4 bytes big-endian)
-          // We keep: kind(4) + pubkey(32) + identifier(var) — no relay hints
-          const tlv = parseTLV(new Uint8Array(bytes));
-          const kind = tlv[3] ? Array.from(tlv[3][0]) : [0, 0, 0, 1]; // default kind 1
-          const pubkey = tlv[2] ? Array.from(tlv[2][0]) : new Array(32).fill(0);
-          const dTag = tlv[0] ? Array.from(tlv[0][0]) : [];
-          shortType = "a";
-          payload = [...kind, ...pubkey, ...dTag];
-        } else {
-          throw new Error(`Unsupported bech32 type: ${hrp}`);
-        }
-
-        const code = bytesToBase62(payload);
-        return { shortType, code, url: `${baseUrl}/${shortType}/${code}` };
-      }
-
       function shortToNostr(shortType, code) {
         if (!TYPE_MAP[shortType]) throw new Error(`Unknown type: ${shortType}`);
 
@@ -725,6 +504,153 @@
         }
       }
 
+      // ─── Router: runs synchronously in <head>, before body is parsed ──────────────
+      (function () {
+        const m = window.location.pathname.match(
+          /^\/(p|e|n|a)\/([A-Za-z0-9]+)$/,
+        );
+        if (!m) return;
+        try {
+          window.location.href = `https://njump.to/${shortToNostr(m[1], m[2])}`;
+        } catch (e) {
+          // bad code — let page load normally
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="wrap" id="main-ui">
+      <header>
+        <div class="logo">n<span>shrt</span></div>
+        <div class="tagline">Serverless short links for Nostr</div>
+      </header>
+
+      <!-- Shorten card -->
+      <div class="card">
+        <div class="card-title">Shorten</div>
+        <label for="input-url"
+          >Paste npub, nevent, naddr, note, or njump URL</label
+        >
+        <div class="input-row">
+          <input
+            type="text"
+            id="input-url"
+            placeholder="npub1… or nevent1… or https://njump.to/…"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="btn btn-primary" onclick="shorten()">Shorten</button>
+        </div>
+        <div class="error-msg" id="shorten-error"></div>
+
+        <div class="result" id="shorten-result">
+          <div style="margin-bottom: 10px; margin-top: 4px">
+            <label style="margin-bottom: 0">Short link</label>
+          </div>
+          <div class="result-url">
+            <code id="result-short-url"></code>
+            <button class="btn btn-ghost" onclick="copyResult()">Copy</button>
+          </div>
+
+          <div class="info-grid" id="result-info-grid"></div>
+        </div>
+      </div>
+
+      <div class="divider">or</div>
+
+      <!-- Expand card -->
+      <div class="card" style="--accent: var(--accent2)">
+        <div class="card-title" style="color: var(--accent2)">Expand</div>
+        <label for="input-short">Paste a short code to decode</label>
+        <div class="input-row">
+          <input
+            type="text"
+            id="input-short"
+            placeholder="p/7Xk9mQr… or e/…"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button
+            class="btn btn-primary"
+            style="border-color: var(--accent2); color: var(--accent2)"
+            onmouseover="this.style.background='var(--accent2)';this.style.color='var(--bg)'"
+            onmouseout="this.style.background='transparent';this.style.color='var(--accent2)'"
+            onclick="expand()"
+          >
+            Expand
+          </button>
+        </div>
+        <div class="error-msg" id="expand-error"></div>
+
+        <div class="result" id="expand-result">
+          <label>Decoded njump URL</label>
+          <div class="result-url" style="border-color: var(--accent2)">
+            <code id="result-expanded-url" style="color: var(--accent2)"></code>
+            <a
+              id="result-expanded-link"
+              href="#"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-ghost"
+              >Open</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- How it works -->
+      <div
+        style="
+          margin-top: 32px;
+          padding: 20px 28px;
+          border: 1px solid var(--border);
+          background: var(--surface);
+        "
+      >
+        <div class="card-title" style="margin-bottom: 14px">How it works</div>
+        <div style="font-size: 0.76rem; color: var(--muted); line-height: 1.9">
+          <p>
+            Nostr identifiers (npub, nevent, naddr) are bech32-encoded bytes.
+            This tool strips the bech32 wrapper and re-encodes the raw bytes in
+            <strong style="color: var(--text)">base62</strong> (0–9, a–z, A–Z).
+          </p>
+          <p style="margin-top: 10px">
+            A 32-byte pubkey goes from
+            <code style="color: var(--accent)">npub1... (63 chars)</code> to
+            <code style="color: var(--success)">43 chars</code>. No database, no
+            server — the short code <em style="color: var(--text)">is</em> the
+            data.
+          </p>
+          <p style="margin-top: 10px">
+            Deploy this file to any static host. Route
+            <code>/:type/:code</code> to this <code>index.html</code> and the JS
+            router handles the rest.
+          </p>
+        </div>
+        <div style="margin-top: 16px; font-size: 0.68rem; color: var(--muted)">
+          URL scheme: &nbsp;
+          <code style="color: var(--accent)">/p/&lt;base62&gt;</code> → npub
+          &nbsp;|&nbsp;
+          <code style="color: var(--accent)">/e/&lt;base62&gt;</code> → nevent
+          &nbsp;|&nbsp;
+          <code style="color: var(--accent)">/a/&lt;base62&gt;</code> → naddr
+          &nbsp;|&nbsp;
+          <code style="color: var(--accent)">/n/&lt;base62&gt;</code> → note
+        </div>
+      </div>
+
+      <footer>
+        <div>
+          No server. No database. No tracking.
+          <span class="pill">100% client-side</span>
+        </div>
+        <div style="margin-top: 6px">
+          Built for the Nostr ecosystem — self-host it on any static host.
+        </div>
+      </footer>
+    </div>
+
+    <script>
       // ─── UI helpers ───────────────────────────────────────────────────────────────
       function getBaseUrl() {
         return window.location.origin;
@@ -753,6 +679,41 @@
 
       function infoBox(dt, dd) {
         return `<div class="info-box"><dt>${dt}</dt><dd>${dd}</dd></div>`;
+      }
+
+      function nostrToShort(identifier, baseUrl) {
+        identifier = identifier.trim().toLowerCase();
+        // strip bech32
+        const { hrp, data } = bech32Decode(identifier);
+        const bytes = convertbits(data, 5, 8, false);
+
+        let shortType, payload;
+
+        if (hrp === "npub" || hrp === "note") {
+          // simple 32-byte key / event id
+          shortType = hrp === "npub" ? "p" : "n";
+          payload = bytes;
+        } else if (hrp === "nevent") {
+          // TLV: type 0 = event id (32 bytes)
+          const tlv = parseTLV(new Uint8Array(bytes));
+          if (!tlv[0]) throw new Error("nevent missing event id");
+          shortType = "e";
+          payload = Array.from(tlv[0][0]);
+        } else if (hrp === "naddr") {
+          // TLV: type 0 = identifier string, type 1 = relay, type 2 = pubkey (32b), type 3 = kind (4 bytes big-endian)
+          // We keep: kind(4) + pubkey(32) + identifier(var) — no relay hints
+          const tlv = parseTLV(new Uint8Array(bytes));
+          const kind = tlv[3] ? Array.from(tlv[3][0]) : [0, 0, 0, 1]; // default kind 1
+          const pubkey = tlv[2] ? Array.from(tlv[2][0]) : new Array(32).fill(0);
+          const dTag = tlv[0] ? Array.from(tlv[0][0]) : [];
+          shortType = "a";
+          payload = [...kind, ...pubkey, ...dTag];
+        } else {
+          throw new Error(`Unsupported bech32 type: ${hrp}`);
+        }
+
+        const code = bytesToBase62(payload);
+        return { shortType, code, url: `${baseUrl}/${shortType}/${code}` };
       }
 
       function shorten() {
@@ -816,34 +777,8 @@
         navigator.clipboard.writeText(url).catch(() => {});
       }
 
-      // ─── Router: handle /p/CODE and /e/CODE paths ─────────────────────────────────
-      function handleRoute() {
-        const path = window.location.pathname;
-        const m = path.match(/^\/(p|e|n|a)\/([A-Za-z0-9]+)$/);
-        if (!m) return false;
-
-        const [, shortType, code] = m;
-        try {
-          const identifier = shortToNostr(shortType, code);
-          const njumpUrl = `https://njump.to/${identifier}`;
-
-          const screen = document.getElementById("redirect-screen");
-          screen.classList.add("active");
-          document.getElementById("redirect-target").textContent = njumpUrl;
-          document.getElementById("main-ui").style.display = "none";
-
-          window.location.href = njumpUrl;
-          return true;
-        } catch (e) {
-          // bad code — fall through to main UI
-          return false;
-        }
-      }
-
       // Enter key support
       document.addEventListener("DOMContentLoaded", () => {
-        if (handleRoute()) return;
-
         document
           .getElementById("input-url")
           .addEventListener("keydown", (e) => {
