@@ -378,7 +378,7 @@
           <input
             type="text"
             id="input-url"
-            placeholder="npub1… or nevent1… or https://njump.me/…"
+            placeholder="npub1… or nevent1… or https://njump.to/…"
             autocomplete="off"
             spellcheck="false"
           />
@@ -733,13 +733,13 @@
 
       function extractIdentifier(raw) {
         raw = raw.trim();
-        // Extract from njump URL: https://njump.me/<identifier>
-        const m = raw.match(/njump\.me\/([a-z0-9]+\d*[a-z0-9]+)/i);
+        // Extract from any njump URL: e.g. https://njump.me/<identifier>
+        const m = raw.match(/njump\.\w+\/([a-z0-9]+\d*[a-z0-9]+)/i);
         if (m) return m[1];
         // Plain identifier
         if (/^(npub|nevent|naddr|note)1[a-z0-9]+$/i.test(raw)) return raw;
         throw new Error(
-          "Cannot parse input. Paste an npub, nevent, naddr, note, or njump.me URL.",
+          "Cannot parse input. Paste an npub, nevent, naddr, note, or njump URL.",
         );
       }
 
@@ -803,7 +803,7 @@
 
         try {
           const identifier = shortToNostr(shortType, code);
-          const njumpUrl = `https://njump.me/${identifier}`;
+          const njumpUrl = `https://njump.to/${identifier}`;
           document.getElementById("result-expanded-url").textContent = njumpUrl;
           document.getElementById("result-expanded-link").href = njumpUrl;
           document.getElementById("expand-result").classList.add("show");
@@ -826,7 +826,7 @@
         const [, shortType, code] = m;
         try {
           const identifier = shortToNostr(shortType, code);
-          const njumpUrl = `https://njump.me/${identifier}`;
+          const njumpUrl = `https://njump.to/${identifier}`;
 
           const screen = document.getElementById("redirect-screen");
           screen.classList.add("active");
