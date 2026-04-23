@@ -181,4 +181,4 @@ Things that would be useful:
 
 ## Support
 
-If nshrt is useful to you [⚡ Zap this note](nostr:nevent1qqsdmw0m9v8hwmpfrsa2ulg9fudhm0mueqastu5687v9pr0dunxs02qpzamhxue69uhhyetvv9ujuurjd9kkzmpwdejhgtczyr8gjtqms9a54u6xe3vnmwjkmpuwhzkrv9pzpnkfja0usny3yw6fvqcyqqqqqqgjaju5r) or just [send some sats](lightning:sats@liberspace.org) to sats@liberspace.org
+If nshrt is useful to you [⚡ Zap this note](https://njmp.to/e/QzQwnGbPF6qG8CDsnTjvDZBIVVXXjudHPGwrcLe1Zhu) or just [send some sats](lightning:sats@liberspace.org) to sats@liberspace.org
