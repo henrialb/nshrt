@@ -514,7 +514,7 @@
         );
         if (!m) return;
         try {
-          window.location.href = `https://njump.to/${shortToNostr(m[1], m[2])}`;
+          window.location.href = `https://njump.me/${shortToNostr(m[1], m[2])}`;
         } catch (e) {
           // bad code — let page load normally
         }
@@ -538,7 +538,7 @@
           <input
             type="text"
             id="input-url"
-            placeholder="npub1… or nevent1… or https://njump.to/…"
+            placeholder="npub1… or nevent1… or https://njump.me/…"
             autocomplete="off"
             spellcheck="false"
           />
@@ -651,7 +651,9 @@
           Built for the Nostr ecosystem — self-host it on any static host.
         </div>
         <div style="margin-top: 6px">
-          <span id="footer-host"></span> runs on <a href="https://github.com/henrialb/nshrt">nshrt</a> — open source &amp; self-hostable
+          <span id="footer-host"></span> runs on
+          <a href="https://github.com/henrialb/nshrt">nshrt</a> — open source
+          &amp; self-hostable
         </div>
       </footer>
     </div>
@@ -769,7 +771,7 @@
 
         try {
           const identifier = shortToNostr(shortType, code);
-          const njumpUrl = `https://njump.to/${identifier}`;
+          const njumpUrl = `https://njump.me/${identifier}`;
           document.getElementById("result-expanded-url").textContent = njumpUrl;
           document.getElementById("result-expanded-link").href = njumpUrl;
           document.getElementById("expand-result").classList.add("show");
@@ -785,7 +787,8 @@
 
       // Enter key support
       document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("footer-host").textContent = window.location.hostname;
+        document.getElementById("footer-host").textContent =
+          window.location.hostname;
         document
           .getElementById("input-url")
           .addEventListener("keydown", (e) => {
