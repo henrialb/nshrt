@@ -4,28 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nshrt — Nostr Short Links</title>
-    <meta name="description" content="Deterministic, serverless short links for Nostr identifiers. No database, no server — the short code is the data." />
+    <meta
+      name="description"
+      content="Deterministic, serverless short links for Nostr identifiers. No database, no server — the short code is the data."
+    />
     <link rel="canonical" href="https://njmp.to" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://njmp.to" />
     <meta property="og:title" content="nshrt — Nostr Short Links" />
-    <meta property="og:description" content="Deterministic, serverless short links for Nostr identifiers. No database, no server — the short code is the data." />
+    <meta
+      property="og:description"
+      content="Deterministic, serverless short links for Nostr identifiers. No database, no server — the short code is the data."
+    />
     <meta property="og:image" content="https://njmp.to/og-image.png" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="nshrt — Nostr Short Links" />
-    <meta name="twitter:description" content="Deterministic, serverless short links for Nostr identifiers. No database, no server — the short code is the data." />
+    <meta
+      name="twitter:description"
+      content="Deterministic, serverless short links for Nostr identifiers. No database, no server — the short code is the data."
+    />
     <meta name="twitter:image" content="https://njmp.to/og-image.png" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap");
-
       :root {
         --bg: #0a0a0a;
         --surface: #111;
@@ -89,7 +96,7 @@
         font-family: var(--sans);
         font-size: clamp(2.4rem, 8vw, 4rem);
         font-weight: 800;
-        letter-spacing: -0.03em;
+        letter-spacing: 0.03em;
         line-height: 1;
         color: var(--accent);
         margin-bottom: 8px;
@@ -100,7 +107,7 @@
 
       .tagline {
         color: var(--muted);
-        font-size: 0.78rem;
+        font-size: 0.88rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
       }
@@ -127,7 +134,7 @@
       .card-title {
         font-family: var(--sans);
         font-weight: 700;
-        font-size: 0.72rem;
+        font-size: 0.82rem;
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--accent);
@@ -136,7 +143,7 @@
 
       label {
         display: block;
-        font-size: 0.7rem;
+        font-size: 0.82rem;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--muted);
@@ -150,7 +157,7 @@
         border: 1px solid var(--border);
         color: var(--text);
         font-family: var(--mono);
-        font-size: 0.82rem;
+        font-size: 0.94rem;
         padding: 12px 14px;
         outline: none;
         transition: border-color 0.15s;
@@ -172,7 +179,7 @@
 
       .btn {
         font-family: var(--mono);
-        font-size: 0.78rem;
+        font-size: 0.9rem;
         letter-spacing: 0.06em;
         text-transform: uppercase;
         padding: 12px 20px;
@@ -198,7 +205,7 @@
         border-color: var(--border);
         color: var(--muted);
         padding: 8px 12px;
-        font-size: 0.7rem;
+        font-size: 0.82rem;
       }
       .btn-ghost:hover {
         border-color: var(--text);
@@ -225,7 +232,7 @@
       }
       .result-url code {
         font-family: var(--mono);
-        font-size: 0.82rem;
+        font-size: 0.94rem;
         color: var(--success);
         word-break: break-all;
         flex: 1;
@@ -233,7 +240,7 @@
 
       .error-msg {
         margin-top: 12px;
-        font-size: 0.76rem;
+        font-size: 0.88rem;
         color: var(--error);
         display: none;
       }
@@ -248,7 +255,7 @@
         gap: 12px;
         margin: 8px 0;
         color: var(--muted);
-        font-size: 0.7rem;
+        font-size: 0.82rem;
         letter-spacing: 0.1em;
         text-transform: uppercase;
       }
@@ -273,14 +280,14 @@
         padding: 14px;
       }
       .info-box dt {
-        font-size: 0.65rem;
+        font-size: 0.76rem;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         color: var(--muted);
         margin-bottom: 6px;
       }
       .info-box dd {
-        font-size: 0.8rem;
+        font-size: 0.92rem;
         color: var(--text);
         word-break: break-all;
         font-family: var(--mono);
@@ -291,7 +298,7 @@
         margin-top: 48px;
         text-align: center;
         color: var(--muted);
-        font-size: 0.68rem;
+        font-size: 0.82rem;
         letter-spacing: 0.08em;
         line-height: 2;
       }
@@ -308,7 +315,7 @@
         background: rgba(123, 97, 255, 0.12);
         border: 1px solid rgba(123, 97, 255, 0.3);
         color: var(--accent2);
-        font-size: 0.62rem;
+        font-size: 0.72rem;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         padding: 2px 8px;
@@ -627,7 +634,7 @@
         "
       >
         <div class="card-title" style="margin-bottom: 14px">How it works</div>
-        <div style="font-size: 0.76rem; color: var(--muted); line-height: 1.9">
+        <div style="font-size: 0.88rem; color: var(--muted); line-height: 1.9">
           <p>
             Nostr identifiers (npub, nevent, naddr) are bech32-encoded bytes.
             This tool strips the bech32 wrapper and re-encodes the raw bytes in
@@ -646,7 +653,7 @@
             router handles the rest.
           </p>
         </div>
-        <div style="margin-top: 16px; font-size: 0.68rem; color: var(--muted)">
+        <div style="margin-top: 16px; font-size: 0.8rem; color: var(--muted)">
           URL scheme: &nbsp;
           <code style="color: var(--accent)">/p/&lt;base62&gt;</code> → npub
           &nbsp;|&nbsp;
@@ -664,13 +671,15 @@
           <span class="pill">100% client-side</span>
         </div>
         <div style="margin-top: 6px">
-          Built for the Nostr ecosystem — self-host it on any static host.
+          <span id="footer-host"></span>njmp.to runs on
+          <a href="https://github.com/henrialb/nshrt">nshrt</a> — built by
+          <a
+            href="nostr:npub1e6yjcxup0d90x3kvty7m54kc0r4c4smpggsvajvhtlyyeyfrkjtqhcl44p"
+            >Henrique</a
+          >
+          for the Nostr ecosystem.
         </div>
-        <div style="margin-top: 6px">
-          <span id="footer-host"></span> runs on
-          <a href="https://github.com/henrialb/nshrt">nshrt</a> — open source
-          &amp; self-hostable
-        </div>
+        <div style="margin-top: 6px">Self-host it on any static host.</div>
       </footer>
     </div>
 
