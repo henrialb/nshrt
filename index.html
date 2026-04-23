@@ -650,6 +650,9 @@
         <div style="margin-top: 6px">
           Built for the Nostr ecosystem — self-host it on any static host.
         </div>
+        <div style="margin-top: 6px">
+          <span id="footer-host"></span> runs on <a href="https://github.com/henrialb/nshrt">nshrt</a> — open source &amp; self-hostable
+        </div>
       </footer>
     </div>
 
@@ -782,6 +785,7 @@
 
       // Enter key support
       document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("footer-host").textContent = window.location.hostname;
         document
           .getElementById("input-url")
           .addEventListener("keydown", (e) => {
